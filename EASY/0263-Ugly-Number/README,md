@@ -1,0 +1,60 @@
+# 263. Ugly Number
+
+**Difficulty:** 🟢 Easy
+**Link:** https://leetcode.com/problems/ugly-number/
+
+## Problem
+An ugly number is a positive integer whose prime factors are 
+limited to 2, 3, and 5.
+
+Given an integer `n`, return `true` if `n` is an ugly number.
+
+## Note (Local Testing vs LeetCode)
+
+For **Local Development** in VS Code, you need these lines:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    // test code here
+}
+```
+
+For LeetCode, you don't need any of these — the platform handles it.
+
+## Approach 1 — My Solution
+1. Reject `n <= 0` immediately (ugly numbers must be positive).
+2. Loop through the factors `{2, 3, 5}`.
+3. For each factor, keep dividing `n` while it's divisible.
+4. After all divisions, if `n == 1` → ugly, else not.
+
+```cpp
+bool isUgly(int n) {
+    if (n <= 0) return false;
+    for (int factor : {2, 3, 5}) {
+        while (n % factor == 0) {
+            n /= factor;
+        }
+    }
+    return n == 1;
+}
+```
+
+## Approach 2 — Alternative
+Same logic, just unrolled — no loop, one `while` per factor.
+
+```cpp
+bool isUgly(int n) {
+    if (n <= 0) return false;
+    while (n % 2 == 0) n /= 2;
+    while (n % 3 == 0) n /= 3;
+    while (n % 5 == 0) n /= 5;
+    return n == 1;
+}
+```
+
+## Complexity
+- Time: O(log n) — each division shrinks `n`
+- Space: O(1) — no extra memory
